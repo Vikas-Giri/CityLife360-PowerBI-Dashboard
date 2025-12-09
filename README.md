@@ -35,7 +35,7 @@ This repo contains the PBIX and a sample Excel data file used to build the visua
 ## Getting started
 
 Prerequisites:
-- Power BI Desktop (recommended: the latest stable release; tested with Power BI Desktop version [please note your tested version here])
+- Power BI Desktop (recommended: the latest stable release; tested with Power BI Desktop version [2.149.1429.0.])
 - Windows or supported OS for Power BI
 - (Optional) Git LFS if you plan to version-control large .pbix files
 
@@ -74,7 +74,6 @@ Sales by Advisor:
 Sales by Product:
 ![Sales by Product](images/sales_by_product.png)
 
-(If images do not render, ensure `images/` folder exists and file names match.)
 
 ---
 
@@ -180,7 +179,6 @@ Please read CONTRIBUTING.md (in this repo) for the contribution workflow. In bri
 3. Commit changes and push to your fork.
 4. Open a Pull Request describing the change, include screenshots for UI changes, and link related issues.
 
-(If you want stricter rules, add a CONTRIBUTING.md file with templates and branch rules.)
 
 ---
 
@@ -195,8 +193,3 @@ GitHub: https://github.com/Vikas-Giri
 LinkedIn: https://linkedin.com/in/vikasgiri
 
 ---
-
-If you want, I can:
-- open a PR with these files,
-- commit directly to a branch you name,
-- or update an existing branch. Tell me which you'd prefer and which license year or author name to use if different from what's included.
