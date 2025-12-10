@@ -66,13 +66,13 @@ If this repository will include real client data, remove it and provide a sample
 ## Key pages & screenshots
 
 Executive Summary (KPIs, trend):
-![Executive Summary](images/overview.png)
+![Executive Summary](images/Executive_Overview.png)
 
 Sales by Advisor:
-![Sales by Advisor](images/sales_by_advisor.png)
+![Sales by Advisor](images/Wealth_Dashboard.png)
 
 Sales by Product:
-![Sales by Product](images/sales_by_product.png)
+![Sales by Product](images/Insurance_Dashboard.png)
 
 
 ---
