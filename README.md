@@ -65,14 +65,14 @@ If this repository will include real client data, remove it and provide a sample
 
 ## Key pages & screenshots
 
-Executive Summary (KPIs, trend):
-![Executive Summary](images/Executive_Overview.png)
+Executive Overview: (KPIs, trend):
+![Executive Overview](images/Executive_Overview.jpg)
 
-Sales by Advisor:
-![Sales by Advisor](images/Wealth_Dashboard.png)
+ Wealth Dashboard:
+![Wealth Dashboard](images/Wealth_Dashboard.jpg)
 
-Sales by Product:
-![Sales by Product](images/Insurance_Dashboard.png)
+ Insurance Dashboard:
+![Insurance Dashboard](images/Insurance_Dashboard.jpg)
 
 
 ---
@@ -166,9 +166,9 @@ CityLife360-PowerBI-Dashboard/
 ├─ README.md
 ├─ LICENSE
 └─ images/
-   ├─ overview.png
-   ├─ sales_by_advisor.png
-   └─ sales_by_product.png
+   ├─ Executive_Overview.png
+   ├─ Welth_Dashboard.png
+   └─ Insurance_Dashboard.png
 
 ---
 
