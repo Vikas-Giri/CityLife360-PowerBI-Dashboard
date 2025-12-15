@@ -1,165 +1,222 @@
-# CityLife 360 – Power BI Dashboard
+ ___
 
-📊 End-to-End Business Intelligence Project for Wealth & Insurance
+CityLife 360 – Power BI Dashboard
 
-This repository contains a Power BI report (CityLife360_Project.pbix) and a sample data file (CityLifeData.xlsx) used to build an executive-facing 360° dashboard for CityLife's VP of Sales. The report demonstrates time-intelligence DAX, dynamic KPIs, and interactive visual insights.
+📊 Learning-Focused Business Intelligence Project (Simulated Executive Reporting)
 
----
-
-## Table of contents
-- Project overview
-- Getting started
-- Data & privacy
-- Key pages & screenshots
-- DAX measures (examples & recommendations)
-- Recommended best practices
-- Project structure
-- Contributing
-- License
-- Contact
 
 ---
 
-## Project overview
+Important Context
+
+This is a learning-focused Power BI project created to practice real-world business intelligence concepts such as data modeling, DAX time intelligence, and dashboard design.
+
+The dashboard, visuals, and documentation are intentionally written in a professional, executive-reporting style to simulate how insights might be presented to business stakeholders.
+This project is not used in production and represents hands-on learning and skill development.
+
+
+---
+
+Table of Contents
+
+Project Overview
+
+Getting Started
+
+Data & Privacy
+
+Key Pages & Dashboard Preview
+
+DAX Measures (Examples)
+
+Recommended Best Practices
+
+Project Structure
+
+License
+
+Contact
+
+
+
+---
+
+Project Overview
+
 Objectives:
-- Build an interactive multi-page Power BI dashboard
-- Track Sales, Withdrawals, Net Contribution and YoY performance
-- Analyze across products, advisors, and risk levels
-- Implement DAX time intelligence (CY, PY, YoY%)
-- Provide a clean, executive-ready UI
 
-This repo contains the PBIX and a sample Excel data file used to build the visuals. The PBIX includes a dedicated Date (Calendar) table which is used for all time-intelligence measures.
+Build an interactive, multi-page Power BI dashboard
 
----
+Practice modeling Sales, Withdrawals, Net Contribution, and YoY performance
 
-## Getting started
+Analyze metrics across products, advisors, and risk levels
 
-Prerequisites:
-- Power BI Desktop (recommended: the latest stable release; tested with Power BI Desktop version [2.149.1429.0.])
-- Windows or supported OS for Power BI
-- (Optional) Git LFS if you plan to version-control large .pbix files
+Implement DAX time-intelligence measures (CY, PY, YoY%)
 
-Open the report:
-1. Download `CityLife360_Project.pbix` from the repository (or Releases).
-2. Place `CityLifeData.xlsx` in the same directory as the PBIX or re-point the data source from Power BI Desktop: Home → Transform data → Data source settings → Change source.
-3. In Power BI Desktop, confirm the dedicated Date table is present and is marked as the model date table: Model → select the Date table → Modeling → Mark as date table.
-4. Refresh data: Home → Refresh (ensure data source path and credentials are configured).
+Design a clean, executive-style reporting interface
 
-Notes:
-- If you plan to store PBIX in Git, use Git LFS or Releases to avoid bloating git history.
-- If CityLifeData.xlsx contains production or sensitive data, remove it from the public repo and replace with anonymized sample data.
 
----
+This repository contains:
 
-## Data & privacy
-- `CityLifeData.xlsx` is included as a sample dataset. Ensure any production or sensitive data is anonymized before committing.
-- Typical tables used (example schema):
-  - Sales (record_date, advisor_id, product_id, amount, withdrawal_amount, risk_level, ...)
-  - Products (product_id, product_name, category, risk_level)
-  - Advisors (advisor_id, advisor_name, team, region)
-  - Date (Date, Year, Month, Day, FiscalYear, IsBusinessDay) — dedicated Calendar table (present in PBIX)
+A Power BI report file (CityLife360_Project.pbix)
 
-If this repository will include real client data, remove it and provide a sample dataset instead.
+A sample Excel dataset (CityLifeData.xlsx) used for visualization and analysis
 
----
 
-## Key pages & screenshots
-
-Executive Overview: (KPIs, trend):
-![Executive Overview](images/Executive_Overview.jpg)
-
- Wealth Dashboard:
-![Wealth Dashboard](images/Wealth_Dashboard.jpg)
-
- Insurance Dashboard:
-![Insurance Dashboard](images/Insurance_Dashboard.jpg)
+The PBIX includes a dedicated Date (Calendar) table used for all time-intelligence calculations.
 
 
 ---
 
-## DAX measures (examples & recommendations)
+Getting Started
 
-Important: The PBIX uses a dedicated Date/Calendar table named `Date` and it should be marked as the model date table. Time intelligence measures below assume that.
+Prerequisites
 
-Core measures (illustrative):
+Power BI Desktop (latest stable version recommended)
 
-- Total Sales
-```
+Windows or a supported OS for Power BI
+
+(Optional) Git LFS for versioning large .pbix files
+
+
+Open the Report
+
+1. Download CityLife360_Project.pbix from this repository.
+
+
+2. Ensure CityLifeData.xlsx is in the same directory, or update the data source in Power BI:
+
+Home → Transform Data → Data Source Settings → Change Source
+
+
+
+3. Confirm the Date table is marked correctly:
+
+Model view → Select Date table → Modeling → Mark as Date Table
+
+
+
+4. Refresh the report:
+
+Home → Refresh
+
+
+
+
+Notes
+
+If using Git for PBIX files, consider Git LFS or GitHub Releases.
+
+Replace real or sensitive data with anonymized sample data before sharing publicly.
+
+
+
+---
+
+Data & Privacy
+
+CityLifeData.xlsx is a sample dataset provided for learning purposes.
+
+Typical tables include:
+
+Sales (date, advisor, product, amount, withdrawals, risk level)
+
+Products (product category, risk profile)
+
+Advisors (advisor, team, region)
+
+Date (Year, Month, Day, Fiscal attributes)
+
+
+
+⚠️ Do not commit real client or production data to public repositories.
+
+
+---
+
+Key Pages & Dashboard Preview
+
+Executive Overview
+
+High-level KPIs and sales trends.
+
+
+
+Wealth Dashboard
+
+Performance analysis by product and advisor.
+
+
+
+Insurance Dashboard
+
+Insurance-specific insights and trends.
+
+
+
+
+---
+
+DAX Measures (Examples)
+
+This project uses a dedicated Date table marked as the model date table.
+
+Core Measures
+
 Total Sales = SUM('Sales'[amount])
-```
 
-- Total Withdrawals
-```
 Total Withdrawals = SUM('Sales'[withdrawal_amount])
-```
 
-- Net Contribution
-```
 Net Contribution = [Total Sales] - [Total Withdrawals]
-```
 
-- Current Year Sales (CY) — recommended approach with Date table:
-```
+Time Intelligence
+
 CY Sales =
 CALCULATE(
-  [Total Sales],
-  YEAR('Date'[Date]) = YEAR(MAX('Date'[Date]))
+    [Total Sales],
+    YEAR('Date'[Date]) = YEAR(MAX('Date'[Date]))
 )
-```
 
-- Prior Year Sales (PY) — preferred using SAMEPERIODLASTYEAR:
-```
 PY Sales =
 CALCULATE(
-  [Total Sales],
-  SAMEPERIODLASTYEAR('Date'[Date])
+    [Total Sales],
+    SAMEPERIODLASTYEAR('Date'[Date])
 )
-```
 
-- YoY Sales %
-```
 YoY Sales % =
-DIVIDE( [CY Sales] - [PY Sales], [PY Sales], 0 )
-```
+DIVIDE([CY Sales] - [PY Sales], [PY Sales], 0)
 
-- Example using VARs for readability:
-```
-YoY Sales % (clean) =
-VAR _CY = [CY Sales]
-VAR _PY = [PY Sales]
+Using VARs for Readability
+
+YoY Sales % (Clean) =
+VAR CY = [CY Sales]
+VAR PY = [PY Sales]
 RETURN
-DIVIDE(_CY - _PY, _PY, 0)
-```
+DIVIDE(CY - PY, PY, 0)
 
-Notes:
-- SAMEPERIODLASTYEAR and DATEADD require a continuous Date table with no gaps.
-- Use DIVIDE(..., 0) to avoid divide-by-zero errors.
-- Consider using USERELATIONSHIP where multiple date columns exist for context-specific measures.
-
-CONST / Current Date table:
-- If you prefer a single-row table with a snapshot date:
-```
-CONST =
-DATATABLE(
-  "CurrentDate", DATETIME,
-  { { DATE(2025, 12, 31) } }
-)
-```
-Then refer to it in measures when needed (example: compare to snapshot date). Document how the CONST table is updated.
 
 ---
 
-## Recommended best practices
-- Create and mark a Date/Calendar table as the model date table (the PBIX already has this).
-- Use DAX VARs for clarity and performance.
-- Avoid storing production-sensitive Excel files in a public repo. Prefer sample/anonymized datasets.
-- Keep PBIX files under Releases or use Git LFS.
-- Document Power Query transformations and complex modelling decisions (either in this README or separate docs).
-- Use descriptive measure names and a consistent naming convention.
+Recommended Best Practices
+
+Always create and mark a dedicated Date table
+
+Use DAX variables (VAR) for readability
+
+Apply consistent naming conventions for measures
+
+Document Power Query transformations
+
+Avoid storing large PBIX files directly in Git without LFS or Releases
+
+Keep dashboards simple and focused on key insights
+
+
 
 ---
 
-## Project structure
+Project Structure
+
 CityLife360-PowerBI-Dashboard/
 ├─ CityLife360_Project.pbix
 ├─ CityLifeData.xlsx
@@ -170,26 +227,27 @@ CityLife360-PowerBI-Dashboard/
    ├─ Wealth_Dashboard.png
    └─ Insurance_Dashboard.png
 
----
-
-## Contributing
-Please read CONTRIBUTING.md (in this repo) for the contribution workflow. In brief:
-1. Fork the repository.
-2. Create a feature branch (git checkout -b feature/your-feature).
-3. Commit changes and push to your fork.
-4. Open a Pull Request describing the change, include screenshots for UI changes, and link related issues.
-
 
 ---
 
-## License
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+License
+
+This project is licensed under the MIT License.
+See the LICENSE file for details.
+
 
 ---
 
-## Contact
-Developer: Vikas Giri  
-GitHub: https://github.com/Vikas-Giri  
+Contact
+
+Developer: Vikas Giri
+GitHub: https://github.com/Vikas-Giri
 LinkedIn: https://linkedin.com/in/vikasgiri
+
+
+---
+
+✨ This project reflects my learning process and growing understanding of Power BI, DAX, and dashboard design.
+
 
 ---
