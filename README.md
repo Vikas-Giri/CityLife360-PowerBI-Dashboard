@@ -167,7 +167,7 @@ CityLife360-PowerBI-Dashboard/
 ├─ LICENSE
 └─ images/
    ├─ Executive_Overview.png
-   ├─ Welth_Dashboard.png
+   ├─ Wealth_Dashboard.png
    └─ Insurance_Dashboard.png
 
 ---
