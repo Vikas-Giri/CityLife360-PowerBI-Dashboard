@@ -1,271 +1,140 @@
- CityLife 360 – Power BI Dashboard
+# CityLife 360 – Power BI Dashboard
 
-📊 End-to-End Business Intelligence Project for Wealth & Insurance
+## Overview
+CityLife 360 is an end-to-end Power BI dashboard designed to analyze business performance across **Wealth** and **Insurance** product lines.
 
-This repository contains a Power BI report (CityLife360_Project.pbix) and a sample data file (CityLifeData.xlsx) used to build an executive-facing 360° dashboard for CityLife's VP of Sales. The report demonstrates time-intelligence DAX, dynamic KPIs, and interactive visual insights.
+The dashboard provides a 360° view of sales trends, advisor performance, product contribution, and year-over-year growth using interactive visuals and DAX calculations.
 
-
----
-
-Table of contents
-
-Project overview
-
-Getting started
-
-Data & privacy
-
-Key pages & screenshots
-
-DAX measures (examples & recommendations)
-
-Recommended best practices
-
-Project structure
-
-Contributing
-
-License
-
-Contact
-
-
+This project demonstrates practical Power BI skills including data modeling, DAX measures, and dashboard design.
 
 ---
 
-Project overview
+## Business Objective
+The objective of this dashboard is to help sales leadership:
 
-Objectives:
-
-Build an interactive multi-page Power BI dashboard
-
-Track Sales, Withdrawals, Net Contribution and YoY performance
-
-Analyze across products, advisors, and risk levels
-
-Implement DAX time intelligence (CY, PY, YoY%)
-
-Provide a clean, executive-ready UI
-
-
-This repo contains the PBIX and a sample Excel data file used to build the visuals. The PBIX includes a dedicated Date (Calendar) table which is used for all time-intelligence measures.
-
+- Monitor overall business performance
+- Compare Wealth and Insurance business segments
+- Track advisor and product performance
+- Analyze risk-level distribution
+- Measure performance using Current Year (CY), Previous Year (PY), and YoY metrics
 
 ---
 
-Getting started
+## Dashboard Pages
 
-Prerequisites:
-
-Power BI Desktop (recommended: the latest stable release; tested with Power BI Desktop version [2.149.1429.0.])
-
-Windows or supported OS for Power BI
-
-(Optional) Git LFS if you plan to version-control large .pbix files
-
-
-Open the report:
-
-1. Download CityLife360_Project.pbix from the repository (or Releases).
-
-
-2. Place CityLifeData.xlsx in the same directory as the PBIX or re-point the data source from Power BI Desktop: Home → Transform data → Data source settings → Change source.
-
-
-3. In Power BI Desktop, confirm the dedicated Date table is present and is marked as the model date table: Model → select the Date table → Modeling → Mark as date table.
-
-
-4. Refresh data: Home → Refresh (ensure data source path and credentials are configured).
-
-
-
-Notes:
-
-If you plan to store PBIX in Git, use Git LFS or Releases to avoid bloating git history.
-
-If CityLifeData.xlsx contains production or sensitive data, remove it from the public repo and replace with anonymized sample data.
-
-
+### 1. Executive Overview
+A high-level summary of overall business performance including:
+- Key KPIs (CY Sales, PY Sales, YoY %, Net Contribution)
+- Sales trend analysis
+- Product and advisor performance
+- Risk-level distribution
 
 ---
 
-Data & privacy
+### 2. Wealth Business Dashboard
+Focused analysis of Wealth products such as:
+- Mutual Funds
+- Retirement Savings
+- Stock Portfolios
 
-CityLifeData.xlsx is included as a sample dataset. Ensure any production or sensitive data is anonymized before committing.
-
-Typical tables used (example schema):
-
-Sales (record_date, advisor_id, product_id, amount, withdrawal_amount, risk_level, ...)
-
-Products (product_id, product_name, category, risk_level)
-
-Advisors (advisor_id, advisor_name, team, region)
-
-Date (Date, Year, Month, Day, FiscalYear, IsBusinessDay) — dedicated Calendar table (present in PBIX)
-
-
-
-If this repository will include real client data, remove it and provide a sample dataset instead.
-
+Includes:
+- Wealth-specific KPIs
+- Product contribution within Wealth
+- Advisor performance for Wealth products
+- Risk classification insights
 
 ---
 
-Key pages & screenshots
+### 3. Insurance Business Dashboard
+Focused analysis of Insurance products including:
+- Home, Vehicle, Life, and Specialty Insurance
 
-Executive Overview: (KPIs, trend):
-
-
-Wealth Dashboard:
-
-
-Insurance Dashboard:
-
-
+Includes:
+- Insurance-specific KPIs
+- Product-level sales comparison
+- Risk distribution across insurance products
+- Advisor sales performance
 
 ---
 
-DAX measures (examples & recommendations)
-
-Important: The PBIX uses a dedicated Date/Calendar table named Date and it should be marked as the model date table. Time intelligence measures below assume that.
-
-Core measures (illustrative):
-
-Total Sales
-
-
-Total Sales = SUM('Sales'[amount])
-
-Total Withdrawals
-
-
-Total Withdrawals = SUM('Sales'[withdrawal_amount])
-
-Net Contribution
-
-
-Net Contribution = [Total Sales] - [Total Withdrawals]
-
-Current Year Sales (CY) — recommended approach with Date table:
-
-
-CY Sales =  
-CALCULATE(  
-  [Total Sales],  
-  YEAR('Date'[Date]) = YEAR(MAX('Date'[Date]))  
-)
-
-Prior Year Sales (PY) — preferred using SAMEPERIODLASTYEAR:
-
-
-PY Sales =  
-CALCULATE(  
-  [Total Sales],  
-  SAMEPERIODLASTYEAR('Date'[Date])  
-)
-
-YoY Sales %
-
-
-YoY Sales % =  
-DIVIDE( [CY Sales] - [PY Sales], [PY Sales], 0 )
-
-Example using VARs for readability:
-
-
-YoY Sales % (clean) =  
-VAR _CY = [CY Sales]  
-VAR _PY = [PY Sales]  
-RETURN  
-DIVIDE(_CY - _PY, _PY, 0)
-
-Notes:
-
-SAMEPERIODLASTYEAR and DATEADD require a continuous Date table with no gaps.
-
-Use DIVIDE(..., 0) to avoid divide-by-zero errors.
-
-Consider using USERELATIONSHIP where multiple date columns exist for context-specific measures.
-
-
-CONST / Current Date table:
-
-If you prefer a single-row table with a snapshot date:
-
-
-CONST =  
-DATATABLE(  
-  "CurrentDate", DATETIME,  
-  { { DATE(2025, 12, 31) } }  
-)
-
-Then refer to it in measures when needed (example: compare to snapshot date). Document how the CONST table is updated.
-
+## Key Metrics
+- Current Year (CY) Sales
+- Previous Year (PY) Sales
+- Year-over-Year Growth (%)
+- Total Sales
+- Total Withdrawals
+- Net Contribution
+- Product Count
+- Advisor Count
 
 ---
 
-Recommended best practices
+## DAX & Logic Used
+- CALCULATE
+- FILTER
+- YEAR-based time logic (CY, PY, YoY)
+- Conditional logic for YoY calculations
+- Page-level and visual-level filtering
 
-Create and mark a Date/Calendar table as the model date table (the PBIX already has this).
-
-Use DAX VARs for clarity and performance.
-
-Avoid storing production-sensitive Excel files in a public repo. Prefer sample/anonymized datasets.
-
-Keep PBIX files under Releases or use Git LFS.
-
-Document Power Query transformations and complex modelling decisions (either in this README or separate docs).
-
-Use descriptive measure names and a consistent naming convention.
-
-
+Time-based calculations are implemented using business-defined current date logic as per project requirements.
 
 ---
 
-Project structure
+## Tools & Skills
+- Power BI Desktop
+- DAX (Foundational)
+- Power Query
+- Data Modeling
+- Dashboard Design & UX
+- Microsoft Excel
+- GitHub
+
+---
+
+## Project Structure
 
 CityLife360-PowerBI-Dashboard/
-├─ CityLife360_Project.pbix
-├─ CityLifeData.xlsx
-├─ README.md
-├─ LICENSE
-└─ images/
-├─ Executive_Overview.png
-├─ Wealth_Dashboard.png
-└─ Insurance_Dashboard.png
+│── CityLife360_Project.pbix
+│── CityLifeData.xlsx
+│── README.md
+└── images/
+├── executive_overview.png
+├── wealth_dashboard.png
+├── insurance_dashboard.png
 
 
 ---
 
-Contributing
+## Dashboard Screenshots
 
-Please read CONTRIBUTING.md (in this repo) for the contribution workflow. In brief:
-
-1. Fork the repository.
-
-
-2. Create a feature branch (git checkout -b feature/your-feature).
-
-
-3. Commit changes and push to your fork.
-
-
-4. Open a Pull Request describing the change, include screenshots for UI changes, and link related issues.
-
-
-
+### Executive Overview
+![Executive Overview]( )
 
 ---
 
-License
-
-This project is licensed under the MIT License — see the LICENSE file for details.
-
+### Wealth Business Dashboard
+![Wealth Dashboard]( )
 
 ---
 
-Contact
+### Insurance Business Dashboard
+![Insurance Dashboard]( )
 
-Developer: Vikas Giri
-GitHub: https://github.com/Vikas-Giri
-LinkedIn: https://linkedin.com/in/vikasgiri
+---
 
+## About Me
+**Vikas Giri**  
+Aspiring Data Analyst  
+
+Skills: Power BI, DAX (Beginner), SQL (Learning), Excel
+
+---
+
+## Disclaimer
+This project was created as a portfolio project.  
+External resources were used for learning and clarification, while the dashboard design, logic, and implementation were completed independently.
+
+---
+
+## Outcome
+This project demonstrates my ability to build business-focused Power BI dashboards, apply DAX for time-based analysis, and present insights in a clear, executive-friendly format suitable for entry-level Data Analyst or BI roles
