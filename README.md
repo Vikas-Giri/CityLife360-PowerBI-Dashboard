@@ -30,6 +30,7 @@ License
 Contact
 
 
+
 ---
 
 Project overview
@@ -46,6 +47,7 @@ Implement DAX time intelligence (CY, PY, YoY%)
 
 Provide a clean, executive-ready UI
 
+
 This repo contains the PBIX and a sample Excel data file used to build the visuals. The PBIX includes a dedicated Date (Calendar) table which is used for all time-intelligence measures.
 
 
@@ -60,6 +62,7 @@ Power BI Desktop (recommended: the latest stable release; tested with Power BI D
 Windows or supported OS for Power BI
 
 (Optional) Git LFS if you plan to version-control large .pbix files
+
 
 Open the report:
 
@@ -83,6 +86,7 @@ If you plan to store PBIX in Git, use Git LFS or Releases to avoid bloating git 
 If CityLifeData.xlsx contains production or sensitive data, remove it from the public repo and replace with anonymized sample data.
 
 
+
 ---
 
 Data & privacy
@@ -99,6 +103,8 @@ Advisors (advisor_id, advisor_name, team, region)
 
 Date (Date, Year, Month, Day, FiscalYear, IsBusinessDay) — dedicated Calendar table (present in PBIX)
 
+
+
 If this repository will include real client data, remove it and provide a sample dataset instead.
 
 
@@ -108,9 +114,12 @@ Key pages & screenshots
 
 Executive Overview: (KPIs, trend):
 
+
 Wealth Dashboard:
 
+
 Insurance Dashboard:
+
 
 
 ---
@@ -123,43 +132,50 @@ Core measures (illustrative):
 
 Total Sales
 
+
 Total Sales = SUM('Sales'[amount])
 
 Total Withdrawals
+
 
 Total Withdrawals = SUM('Sales'[withdrawal_amount])
 
 Net Contribution
 
+
 Net Contribution = [Total Sales] - [Total Withdrawals]
 
 Current Year Sales (CY) — recommended approach with Date table:
 
-CY Sales =
-CALCULATE(
-[Total Sales],
-YEAR('Date'[Date]) = YEAR(MAX('Date'[Date]))
+
+CY Sales =  
+CALCULATE(  
+  [Total Sales],  
+  YEAR('Date'[Date]) = YEAR(MAX('Date'[Date]))  
 )
 
 Prior Year Sales (PY) — preferred using SAMEPERIODLASTYEAR:
 
-PY Sales =
-CALCULATE(
-[Total Sales],
-SAMEPERIODLASTYEAR('Date'[Date])
+
+PY Sales =  
+CALCULATE(  
+  [Total Sales],  
+  SAMEPERIODLASTYEAR('Date'[Date])  
 )
 
 YoY Sales %
 
-YoY Sales % =
+
+YoY Sales % =  
 DIVIDE( [CY Sales] - [PY Sales], [PY Sales], 0 )
 
 Example using VARs for readability:
 
-YoY Sales % (clean) =
-VAR _CY = [CY Sales]
-VAR _PY = [PY Sales]
-RETURN
+
+YoY Sales % (clean) =  
+VAR _CY = [CY Sales]  
+VAR _PY = [PY Sales]  
+RETURN  
 DIVIDE(_CY - _PY, _PY, 0)
 
 Notes:
@@ -170,14 +186,16 @@ Use DIVIDE(..., 0) to avoid divide-by-zero errors.
 
 Consider using USERELATIONSHIP where multiple date columns exist for context-specific measures.
 
+
 CONST / Current Date table:
 
 If you prefer a single-row table with a snapshot date:
 
-CONST =
-DATATABLE(
-"CurrentDate", DATETIME,
-{ { DATE(2025, 12, 31) } }
+
+CONST =  
+DATATABLE(  
+  "CurrentDate", DATETIME,  
+  { { DATE(2025, 12, 31) } }  
 )
 
 Then refer to it in measures when needed (example: compare to snapshot date). Document how the CONST table is updated.
@@ -198,6 +216,7 @@ Keep PBIX files under Releases or use Git LFS.
 Document Power Query transformations and complex modelling decisions (either in this README or separate docs).
 
 Use descriptive measure names and a consistent naming convention.
+
 
 
 ---
@@ -250,5 +269,3 @@ Developer: Vikas Giri
 GitHub: https://github.com/Vikas-Giri
 LinkedIn: https://linkedin.com/in/vikasgiri
 
-
----
