@@ -108,17 +108,17 @@ CityLife360-PowerBI-Dashboard/
 ## Dashboard Screenshots
 
 ### Executive Overview
-![Executive Overview]( )
+![Executive Overview](images/Executive_Overview.jpg )
 
 ---
 
 ### Wealth Business Dashboard
-![Wealth Dashboard]( )
+![Wealth Dashboard](images/Wealth_Dashboard.jpg)
 
 ---
 
 ### Insurance Business Dashboard
-![Insurance Dashboard]( )
+![Insurance Dashboard](images/Insurance_Dashboard.jpg)
 
 ---
 
